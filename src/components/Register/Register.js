@@ -60,7 +60,7 @@ function Register() {
       </form>
       <p className="window__text">
         Уже зарегистрированы?
-        <Link to="/signin" className="window__link" type="button">
+        <Link to="/signin" className="window__link">
           Войти
         </Link>
       </p>

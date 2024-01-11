@@ -1,3 +1,7 @@
+ul>li {
+  list-style: none;
+}
+
 .card {
   max-width: 300px;
   position: relative;
@@ -61,7 +65,9 @@
   cursor: pointer;
 }
 
-.card__save-btn:hover {
+.card__save-btn:hover,
+.card__save-btn_active:hover,
+.card__save-btn_disactive:hover {
   opacity: 0.8;
 }
 
@@ -72,6 +78,10 @@
   background-image: url("../../images/card-save-btn-active.svg");
   background-size: contain;
   left: 265px;
+  position: absolute;
+  top: 10px;
+  border-radius: 21px;
+  cursor: pointer;
 }
 
 .card__save-btn_disactive {
@@ -81,6 +91,10 @@
   background-image: url("../../images/card-save-btn-disactive.svg");
   background-size: contain;
   left: 265px;
+  position: absolute;
+  top: 10px;
+  border-radius: 21px;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
@@ -114,6 +128,29 @@
   .card__save-btn_disactive {
     left: 304px;
   }
+}
+
+.card__delete-btn {
+  width: 21px;
+  height: 21px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 30px;
+  border: none;
+  background-color: rgba(49, 49, 49, 1);
+  background-image: url("../../images/card-save-btn-disactive.svg");
+  background-size: contain;
+  font-size: 0;
+  position: absolute;
+  top: 14px;
+  left: 265px;
+  cursor: pointer;
+  display: none;
+}
+
+.card:hover .card__delete-btn {
+  display: block;
 }
 
 @media screen and (min-width: 1280px) {

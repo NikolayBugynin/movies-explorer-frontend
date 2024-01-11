@@ -46,7 +46,7 @@ function Login() {
       </form>
       <p className="window__text">
         Ещё не зарегистрированы?
-        <Link to="/signup" className="window__link" type="button">
+        <Link to="/signup" className="window__link">
           Регистрация
         </Link>
       </p>
