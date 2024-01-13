@@ -1,17 +1,16 @@
 .about-project {
-  width: 100%;
   min-height: 641px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 18px;
 }
 
 .about-project__line {
-  max-width: 284px;
   width: 100%;
   background-color: rgba(218, 218, 218, 1);
   height: 1px;
-  margin-top: 28px;
+  margin-top: 27px;
 }
 
 .about-project__title {
@@ -19,12 +18,11 @@
   font-size: 18px;
   line-height: 21.78px;
   letter-spacing: -0.04em;
-  margin: 70px 0 0 18px;
+  margin: 68px 0 0;
   align-self: flex-start;
 }
 
 .about-project__wrapper {
-  max-width: 284px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -38,7 +36,6 @@
 
 .about-project__header-stages {
   margin: 60px 0 0;
-  max-width: 284px;
   font-weight: 400;
   font-size: 18px;
   line-height: 21.78px;
@@ -47,7 +44,6 @@
 
 .about-project__text {
   margin: 16px 0 0;
-  max-width: 284px;
   font-weight: 400;
   font-size: 11px;
   line-height: 16px;
@@ -55,7 +51,6 @@
 
 .about-project__header-deadlines {
   margin: 56px 0 0;
-  max-width: 284px;
   font-weight: 400;
   font-size: 18px;
   line-height: 21.78px;
@@ -63,9 +58,9 @@
 }
 
 .about-project__deadlines-map {
-  max-width: 284px;
+  width: 100%;
   display: grid;
-  grid-template-columns: 100px 184px;
+  grid-template-columns: 10fr 18fr;
   grid-template-rows: 35px 14px;
   row-gap: 10px;
   margin-top: 60px;
@@ -118,27 +113,24 @@
 @media screen and (min-width: 768px) {
   .about-project {
     min-height: 585px;
+    padding: 0 50px;
   }
 
   .about-project__title {
     font-size: 22px;
     line-height: 26.63px;
-    margin: 90px 0 0 50px;
+    margin: 90px 0 0 0px;
   }
 
   .about-project__line {
-    max-width: 668px;
-    margin-top: 23px;
+    width: 100%;
+    margin-top: 20px;
   }
 
   .about-project__wrapper {
-    max-width: 668px;
     flex-direction: row;
+    gap: 25px;
     justify-content: space-between;
-  }
-
-  .about-project__container {
-    max-width: 319px;
   }
 
   .about-project__header-stages {
@@ -150,21 +142,19 @@
 
   .about-project__text {
     margin: 22px 0 0;
-    max-width: 319px;
     font-size: 12px;
     line-height: 18px;
   }
 
   .about-project__header-deadlines {
     margin: 70px 0 0;
-    max-width: 319px;
     font-size: 20px;
     line-height: 24.2px;
   }
 
   .about-project__deadlines-map {
-    max-width: 668px;
-    grid-template-columns: 140px 528px;
+    width: 100%;
+    grid-template-columns: 14fr 53fr;
     grid-template-rows: 36px 17px;
     row-gap: 14px;
     margin-top: 93px;
@@ -188,11 +178,12 @@
 
 @media screen and (min-width: 1280px) {
   .about-project {
+    padding: 0 40px;
     min-height: 608px;
   }
 
   .about-project__title {
-    margin: 110px 0 0 70px;
+    margin: 110px 0 0 30px;
   }
 
   .about-project__line {

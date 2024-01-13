@@ -16,21 +16,12 @@
 }
 
 .wrapper {
-  max-width: 320px;
+  min-width: 320px;
+  max-width: 1280px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   align-items: center;
-}
-
-@media screen and (min-width: 768px) {
-  .wrapper {
-    max-width: 768px;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .wrapper {
-    max-width: 1280px;
-  }
+  padding: 0;
 }

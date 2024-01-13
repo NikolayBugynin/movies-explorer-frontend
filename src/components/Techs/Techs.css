@@ -1,5 +1,4 @@
 .techs {
-  width: 100%;
   min-height: 651px;
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@
 }
 
 .techs__line {
-  max-width: 284px;
   width: 100%;
   background-color: rgba(218, 218, 218, 1);
   height: 1px;
@@ -15,7 +13,7 @@
 }
 
 .techs__title {
-  margin: 70px 0 0 18px;
+  margin: 68px 0 0 18px;
   font-weight: 400;
   font-size: 18px;
   line-height: 21.78px;
@@ -50,8 +48,8 @@
   padding: 0;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(2, 84px);
-  grid-template-rows: repeat(4, 57px);
+  grid-template-columns: repeat(auto-fill, 84px);
+  grid-auto-rows: 57px;
   gap: 10px;
 }
 
@@ -74,17 +72,17 @@
   .techs {
     min-height: 567px;
     background-color: rgba(39, 39, 39, 1);
+    padding: 0 50px;
   }
 
   .techs__title {
     font-size: 22px;
     line-height: 26.63px;
-    margin: 90px 0 0 50px;
+    margin: 90px 0 0;
   }
 
   .techs__line {
-    max-width: 668px;
-    margin-top: 23px;
+    margin-top: 20px;
   }
 
   .techs__subtitle {
@@ -114,7 +112,7 @@
   }
 
   .techs__title {
-    margin: 100px 0 0 70px;
+    margin: 100px 0 0 20px;
   }
 
   .techs__line {

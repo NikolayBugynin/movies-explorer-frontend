@@ -1,5 +1,4 @@
 .header {
-  max-width: 320px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -9,9 +8,10 @@
 }
 
 .header__logo {
+  margin-left: 15px;
   height: 38px;
   width: 38px;
-  margin-left: 14px;
+
   cursor: pointer;
   transition: opacity 0.2s linear;
   object-fit: cover;
@@ -24,7 +24,7 @@
 .header__links-container {
   max-width: 132px;
   width: 100%;
-  margin-right: 14px;
+  margin-right: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,10 +90,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .header {
-    max-width: 768px;
-  }
-
   .header__logo {
     margin-left: 30px;
   }

@@ -1,9 +1,9 @@
 .promo {
-  width: 100%;
   min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 14px;
 }
 
 .promo__title {
@@ -16,10 +16,10 @@
 }
 
 .promo__wrapper {
-  max-width: 292px;
+  width: 100%;
   min-height: 586px;
   background-color: rgba(39, 39, 39, 1);
-  margin-top: 14px;
+  margin-top: 10px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -29,10 +29,10 @@
 @media screen and (min-width: 768px) {
   .promo {
     min-height: 854px;
+    padding: 0 20px;
   }
 
   .promo__wrapper {
-    max-width: 728px;
     width: 100%;
     min-height: 834px;
     margin-top: 20px;
@@ -49,10 +49,10 @@
 @media screen and (min-width: 1280px) {
   .promo {
     min-height: 513px;
+    padding: 0 40px;
   }
 
   .promo__wrapper {
-    max-width: 1200px;
     min-height: 493px;
   }
 
