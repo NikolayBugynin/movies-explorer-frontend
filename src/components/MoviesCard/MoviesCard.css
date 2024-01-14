@@ -1,0 +1,185 @@
+ul>li {
+  list-style: none;
+}
+
+.card {
+  max-width: 300px;
+  position: relative;
+}
+
+.card__image {
+  width: 300px;
+  height: 168px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.card__container {
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.card__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14.52px;
+}
+
+.card__film-duration {
+  margin: 0;
+  width: 52px;
+  height: 18px;
+  background-color: rgba(47, 47, 47, 1);
+  border-radius: 3px;
+  color: rgba(139, 139, 139, 1);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__save-btn {
+  width: 72px;
+  height: 21px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 6px 0;
+  border-radius: 30px;
+  border: none;
+  background-color: rgba(49, 49, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 9px;
+  text-align: center;
+  position: absolute;
+  top: 14px;
+  left: 218px;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.card__save-btn:hover,
+.card__save-btn_active:hover,
+.card__save-btn_disactive:hover {
+  opacity: 0.8;
+}
+
+.card__save-btn_active {
+  width: 21px;
+  height: 21px;
+  font-size: 0;
+  background-image: url("../../images/card-save-btn-active.svg");
+  background-size: contain;
+  right: 10px;
+  position: absolute;
+  top: 11px;
+  border-radius: 21px;
+  cursor: pointer;
+  border: none;
+}
+
+.card__save-btn_disactive {
+  width: 21px;
+  height: 21px;
+  font-size: 0;
+  background-image: url("../../images/card-save-btn-disactive.svg");
+  background-size: contain;
+  right: 10px;
+  position: absolute;
+  top: 11px;
+  border-radius: 21px;
+  cursor: pointer;
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 339px;
+  }
+
+  .card__image {
+    width: 339px;
+    height: 190px;
+  }
+
+  .card__container {
+    max-width: 339px;
+    margin-top: 25px;
+  }
+
+  .card__title {
+    font-size: 13px;
+    line-height: 15.73px;
+  }
+
+  .card__save-btn {
+    left: 253px;
+  }
+
+  .card__save-btn_active {
+    left: 304px;
+  }
+
+  .card__save-btn_disactive {
+    left: 304px;
+  }
+}
+
+.card__delete-btn {
+  width: 21px;
+  height: 21px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 30px;
+  border: none;
+  background-color: rgba(49, 49, 49, 1);
+  background-image: url("../../images/card-save-btn-disactive.svg");
+  background-size: contain;
+  font-size: 0;
+  position: absolute;
+  top: 14px;
+  left: 265px;
+  cursor: pointer;
+  display: none;
+}
+
+.card:hover .card__delete-btn {
+  display: block;
+}
+
+@media screen and (min-width: 1280px) {
+  .card {
+    max-width: 360px;
+  }
+
+  .card__image {
+    width: 360px;
+    height: 201px;
+  }
+
+  .card__container {
+    max-width: 360px;
+    margin-top: 14px;
+    padding: 0 14px;
+  }
+
+  .card__save-btn {
+    left: 274px;
+  }
+
+  .card__save-btn_active {
+    left: 325px;
+  }
+
+  .card__save-btn_disactive {
+    left: 325px;
+  }
+}

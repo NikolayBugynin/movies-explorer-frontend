@@ -1,0 +1,149 @@
+.search {
+  width: 100%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search__form {
+  max-width: 292px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.search__wrapper {
+  max-width: 292px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search__container {
+  max-width: 292px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search__form-item {
+  width: 238px;
+  height: 44px;
+  box-sizing: border-box;
+  margin: 75px 0 0;
+  padding: 13px 0 13px 13px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(47, 47, 47, 1);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.search__form-item::placeholder {
+  color: rgba(139, 139, 139, 1);
+}
+
+.search__submit-btn {
+  width: 44px;
+  height: 44px;
+  box-sizing: border-box;
+  margin: 75px 0 0;
+  padding: 0;
+  border: none;
+  background-color: rgba(32, 32, 32, 1);
+  background-image: url("../../images/search-form-submit-btn.svg");
+  background-size: cover;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+}
+
+.search__submit-btn:hover {
+  opacity: 0.8;
+}
+
+.search__form-item-error {
+  max-width: 238px;
+  align-self: self-start;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12.1px;
+  color: rgba(238, 52, 101, 1);
+  margin: 7.9px 0 28px;
+
+}
+
+.search__line {
+  max-width: 292px;
+  width: 100%;
+  background-color: rgba(66, 66, 66, 1);
+  height: 1px;
+  margin: 38px 0 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .search__wrapper {
+    max-width: 708px;
+  }
+
+  .search__form {
+    max-width: 708px;
+  }
+
+  .search__container {
+    max-width: 708px;
+  }
+
+  .search__form-item {
+    width: 654px;
+    height: 50px;
+  }
+
+  .search__submit-btn {
+    align-self: center;
+  }
+
+  .search__form-item-error {
+    max-width: 654px;
+    margin: 7.9px 0 20px;
+  }
+
+  .search__line {
+    max-width: 708px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .search {
+    min-height: 228px;
+  }
+
+  .search__wrapper {
+    max-width: 1140px;
+  }
+
+  .search__form {
+    max-width: 1140px;
+  }
+
+  .search__container {
+    max-width: 1140px;
+  }
+
+  .search__form-item {
+    width: 1086px;
+  }
+
+  .search__form-item-error {
+    max-width: 1086px;
+    margin: 7.9px 0 8px;
+  }
+
+  .search__line {
+    max-width: 1140px;
+  }
+}
