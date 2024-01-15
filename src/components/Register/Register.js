@@ -2,15 +2,28 @@ import React from "react";
 import "../Form/Form.css";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
+import { useForm } from "../../hooks/useForm";
+import { emailRegex, nameRegex } from "../../utils/constants";
 
-function Register() {
+function Register({ onRegister, isLoading }) {
+  const { values, errors, isValid, handleChange } = useForm();
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onRegister({
+      email: values.email,
+      password: values.password,
+      name: values.name,
+    });
+  }
+
   return (
     <div className="window">
       <Link to="/" className="window__logo-link">
         <img className="window__logo" alt="Логотип" src={logo} />
       </Link>
       <h2 className="window__title">Добро пожаловать!</h2>
-      <form className="window__form" method="POST">
+      <form className="window__form" method="POST" onSubmit={handleSubmit}>
         <label className="window__form-label" htmlFor="username">
           Имя
         </label>
@@ -21,10 +34,11 @@ function Register() {
           name="name"
           placeholder="Имя"
           required
+          pattern={nameRegex}
+          value={values.name || ""}
+          onChange={handleChange}
         />
-        <span className="window__form-item-error">
-          Имя не должно содержать цифр
-        </span>
+        <span className="window__form-item-error">{errors.name}</span>
         <label className="window__form-label" htmlFor="useremail">
           E-mail
         </label>
@@ -35,10 +49,11 @@ function Register() {
           name="email"
           placeholder="E-mail"
           required
+          pattern={emailRegex}
+          value={values.email || ""}
+          onChange={handleChange}
         />
-        <span className="window__form-item-error">
-          E-mail введен некорректно
-        </span>
+        <span className="window__form-item-error">{errors.email}</span>
         <label className="window__form-label" htmlFor="userpassword">
           Пароль
         </label>
@@ -50,11 +65,16 @@ function Register() {
           placeholder="Пароль"
           autoComplete="on"
           required
+          minLength={8}
+          value={values.password || ""}
+          onChange={handleChange}
         />
-        <span className="window__form-item-error">
-          Пароль должен содержать не менее 8 символов
-        </span>
-        <button className="window__form-submit-btn" type="submit">
+        <span className="window__form-item-error">{errors.password}</span>
+        <button
+          className="window__form-submit-btn"
+          type="submit"
+          disabled={!isValid}
+        >
           Зарегистрироваться
         </button>
       </form>
