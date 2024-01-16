@@ -19,7 +19,7 @@ function Register({ onRegister }) {
         <img className="window__logo" alt="Логотип" src={logo} />
       </Link>
       <h2 className="window__title">Добро пожаловать!</h2>
-      <form className="window__form" method="POST" onSubmit={handleSubmit}>
+      <form className="window__form" onSubmit={handleSubmit}>
         <label className="window__form-label" htmlFor="username">
           Имя
         </label>
