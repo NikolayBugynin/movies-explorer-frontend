@@ -13,3 +13,9 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/Дипломный-проек�
 ## Ссылки на репозиторий:
 
 https://github.com/NikolayBugynin/movies-explorer-frontend
+
+IP 158.160.104.120
+
+Frontend https://hello.nomoredomainsmonster.ru
+
+Backend https://api.hello.nomoredomainsmonster.ru
