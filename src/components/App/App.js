@@ -9,63 +9,75 @@ import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Header from "../Header/Header";
-import MainApi from "../../utils/MainApi";
+import api from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_MOVIE } from "../../utils/constants";
+import {
+  LOCAL_STORAGE_FILTRED,
+  LOCAL_STORAGE_MOVIE,
+  LOCAL_STORAGE_QUERY,
+  LOCAL_STORAGE_SHORT,
+  LOCAL_STORAGE_VISIBLE,
+} from "../../utils/constants";
 import { useUser } from "../../context/CurrentUserContext";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const { setUser, setToken } = useUser();
-  const [savedMovies, setSavedMovies] = useState([]);
+  const navigate = useNavigate();
+
+  const { user, setUser, setToken } = useUser();
+
+  const { token } = user;
+
   const [movies, setMovies] = useState(
     () => JSON.parse(localStorage.getItem(LOCAL_STORAGE_MOVIE)) || []
   );
+  const [savedMovies, setSavedMovies] = useState([]);
 
-  const handleRegister = (data) => {
-    console.log("register");
-
-    MainApi.register(data.email, data.password, data.name).then((res) => {
-      handleLogin(data);
-    });
+  const handleRegister = async (data) => {
+    try {
+      await api(user).register(data);
+      await handleLogin(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const navigate = useNavigate();
-
-  const handleLogin = (data) => {
-    console.log("login");
-
-    MainApi.login(data.email, data.password)
-      .then((res) => {
-        setIsLoggedIn(true);
-        localStorage.setItem(LOCAL_STORAGE_KEY, res.token);
-        navigate("/movies");
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+  const handleLogin = async ({ email, password }) => {
+    try {
+      const { token } = await api(user).login({ email, password });
+      setToken(token);
+      navigate("/movies");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    [
+      LOCAL_STORAGE_MOVIE,
+      LOCAL_STORAGE_FILTRED,
+      LOCAL_STORAGE_QUERY,
+      LOCAL_STORAGE_SHORT,
+      LOCAL_STORAGE_VISIBLE,
+    ].map((key) => localStorage.removeItem(key));
+    setToken("");
   };
 
   useEffect(() => {
-    const jwt = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (jwt) {
-      MainApi.getUserInfo()
-        .then(({ name, email }) => {
-          setIsLoggedIn(true);
-          setUser({ email, name });
-          navigate(location.pathname);
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
+    const checkUser = async () => {
+      try {
+        const { name, email } = await api(user).getUserInfo();
+        setUser({ ...user, name, email });
+        navigate(location.pathname);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    if (token) {
+      checkUser();
     }
-  }, []);
+  }, [token]);
 
   return (
     <div className="wrapper">
@@ -76,7 +88,6 @@ function App() {
           path="/movies"
           element={
             <ProtectedRoute
-              isLoggedIn={isLoggedIn}
               savedMovies={savedMovies}
               setSavedMovies={setSavedMovies}
               component={Movies}
@@ -89,7 +100,6 @@ function App() {
           path="/saved-movies"
           element={
             <ProtectedRoute
-              isLoggedIn={isLoggedIn}
               savedMovies={savedMovies}
               component={SavedMovies}
               setSavedMovies={setSavedMovies}
@@ -98,13 +108,7 @@ function App() {
         />
         <Route
           path="/profile"
-          element={
-            <ProtectedRoute
-              isLoggedIn={isLoggedIn}
-              logOut={handleLogout}
-              component={Profile}
-            />
-          }
+          element={<ProtectedRoute logOut={handleLogout} component={Profile} />}
         />
         <Route
           path="/signup"
