@@ -7,7 +7,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = React.useState({
     name: "",
     email: "",
-    token: null,
+    token: localStorage.getItem(LOCAL_STORAGE_KEY) || null
   });
 
   const setToken = useCallback((newToken) => {

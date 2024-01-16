@@ -1,25 +1,28 @@
-import { LOCAL_STORAGE_KEY, MOVIES_API_URL } from "./constants";
+import { MOVIES_API_URL } from "./constants";
 
 class MainApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
+    this._token = options.token;
   }
 
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+  async getUserInfo() {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`,
+        Authorization: `Bearer ${this._token}`,
         "Content-Type": "application/json",
       },
-    }).then(this._checkResponse);
+    });
+
+    return this._checkResponse(res);
   }
 
   updateUserInfo({ email, name }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`,
+        Authorization: `Bearer ${this._token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, name }),
@@ -30,7 +33,7 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`,
+        Authorization: `Bearer ${this._token}`,
         "Content-Type": "application/json",
       },
     }).then(this._checkResponse);
@@ -41,7 +44,7 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`,
+        Authorization: `Bearer ${this._token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -57,13 +60,13 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`,
+        Authorization: `Bearer ${this._token}`,
         "Content-Type": "application/json",
       },
     }).then(this._checkResponse);
   }
 
-  register(email, password, name) {
+  register({ email, password, name }) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
       headers: {
@@ -73,23 +76,13 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
-  login(email, password) {
+  login({ email, password }) {
     return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    }).then(this._checkResponse);
-  }
-
-  checkToken(jwt) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
     }).then(this._checkResponse);
   }
 
@@ -102,8 +95,9 @@ class MainApi {
   }
 }
 
-const api = new MainApi({
-  baseUrl: "http://localhost:3000",
+const api = ({ token }) => new MainApi({
+  baseUrl: process.env.REACT_APP_API || "http://localhost:3000",
+  token
 });
 
 export default api;

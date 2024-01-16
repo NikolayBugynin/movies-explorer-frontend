@@ -19,12 +19,12 @@ function Profile({ logOut }) {
     e.preventDefault();
     setSubmitted(true);
     setError("");
-    api
+    api(user)
       .updateUserInfo(values)
       .then(({ name, email }) => {
         setSubmitted(false);
         setChanged(false);
-        setUser({ name, email });
+        setUser({ ...user, name, email });
       })
       .catch((error) => {
         setError("При обновлении профиля произошла ошибка.");

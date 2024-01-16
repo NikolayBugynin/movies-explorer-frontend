@@ -4,16 +4,14 @@ import { useForm } from "../../hooks/useForm";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
 
-function Login({ onLogin, isLoading }) {
+function Login({ onLogin }) {
   const { values, errors, isValid, handleChange } = useForm();
 
-  function handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    onLogin({
-      email: values.email,
-      password: values.password,
-    });
-  }
+    onLogin(values);
+  };
+
   return (
     <div className="window">
       <Link to="/" className="window__logo-link">

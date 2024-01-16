@@ -5,16 +5,12 @@ import logo from "../../images/logo.svg";
 import { useForm } from "../../hooks/useForm";
 import { emailRegex, nameRegex } from "../../utils/constants";
 
-function Register({ onRegister, isLoading }) {
+function Register({ onRegister }) {
   const { values, errors, isValid, handleChange } = useForm();
 
-  function handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    onRegister({
-      email: values.email,
-      password: values.password,
-      name: values.name,
-    });
+    onRegister(values);
   }
 
   return (

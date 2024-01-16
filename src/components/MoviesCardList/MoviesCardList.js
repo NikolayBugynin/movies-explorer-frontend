@@ -29,6 +29,8 @@ function MoviesCardList({ movies, savedMovies, loading, onSave, onDelete }) {
 
   useEffect(() => {
     if (windowWidth >= 1280) {
+      //вынести в константы
+
       setVisibleCardCount(12);
     } else if (windowWidth >= 768) {
       setVisibleCardCount(8);

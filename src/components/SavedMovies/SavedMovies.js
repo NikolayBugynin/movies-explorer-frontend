@@ -4,25 +4,27 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import api from "../../utils/MainApi";
+import { useUser } from "../../context/CurrentUserContext";
 
 function SavedMovies({ savedMovies, setSavedMovies }) {
+  const { user } = useUser();
+
   const [filteredMovies, setFilteredMovies] = useState([]);
-
   const [search, setSearch] = useState("");
-
   const [isShortFilm, setIsShortFilm] = useState(false);
 
   useEffect(() => {
-    api.getMovies().then((res) => setSavedMovies(res));
+    api(user)
+      .getMovies()
+      .then((res) => setSavedMovies(res));
   }, []);
 
   useEffect(() => {
-    console.log(savedMovies);
     handleSearch(isShortFilm);
   }, [savedMovies]);
 
   const handleDelete = (movie) => {
-    api
+    api(user)
       .deleteMovie(movie._id)
       .then(() => {
         setSavedMovies(savedMovies.filter(({ _id }) => _id !== movie._id));
