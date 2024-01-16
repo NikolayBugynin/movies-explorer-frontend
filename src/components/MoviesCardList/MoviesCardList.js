@@ -2,11 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
-import { LOCAL_STORAGE_VISIBLE } from "../../utils/constants";
+import {
+  CARD_ADD_LG,
+  CARD_ADD_MD,
+  CARD_COUNT_LG,
+  CARD_COUNT_MD,
+  CARD_COUNT_SM,
+  LOCAL_STORAGE_VISIBLE,
+  WINDOW_WIDTH_LG,
+  WINDOW_WIDTH_MD,
+} from "../../utils/constants";
 
 function MoviesCardList({ movies, savedMovies, loading, onSave, onDelete }) {
   const [visibleCardCount, setVisibleCardCount] = useState(
-    () => JSON.parse(localStorage.getItem(LOCAL_STORAGE_VISIBLE)) || 8
+    () =>
+      JSON.parse(localStorage.getItem(LOCAL_STORAGE_VISIBLE)) || CARD_COUNT_MD
   );
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -28,22 +38,26 @@ function MoviesCardList({ movies, savedMovies, loading, onSave, onDelete }) {
   }, []);
 
   useEffect(() => {
-    if (windowWidth >= 1280) {
-      //вынести в константы
-
-      setVisibleCardCount(12);
-    } else if (windowWidth >= 768) {
-      setVisibleCardCount(8);
+    if (windowWidth >= WINDOW_WIDTH_LG) {
+      if (visibleCardCount < CARD_COUNT_LG) {
+        setVisibleCardCount(CARD_COUNT_LG);
+      }
+    } else if (windowWidth >= WINDOW_WIDTH_MD) {
+      if (visibleCardCount < CARD_COUNT_MD) {
+        setVisibleCardCount(CARD_COUNT_MD);
+      }
     } else {
-      setVisibleCardCount(5);
+      if (visibleCardCount < CARD_COUNT_SM) {
+        setVisibleCardCount(CARD_COUNT_SM);
+      }
     }
   }, [windowWidth]);
 
   const calculateCardCount = () => {
-    if (windowWidth >= 1280) {
-      return visibleCardCount + 3;
+    if (windowWidth >= WINDOW_WIDTH_LG) {
+      return visibleCardCount + CARD_ADD_LG;
     }
-    return visibleCardCount + 2;
+    return visibleCardCount + CARD_ADD_MD;
   };
 
   const onNextPage = () => {

@@ -1,10 +1,11 @@
 import React from "react";
 import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
+import { HOUR, MOVIES_API_URL } from "../../utils/constants";
 
 const formatDuration = (duration) => {
-  const hours = Math.floor(duration / 60);
-  const minutes = duration % 60;
+  const hours = Math.floor(duration / HOUR);
+  const minutes = duration % HOUR;
   return `${hours}ч ${minutes}м`;
 };
 
@@ -26,7 +27,7 @@ function MoviesCard({ movie, isSaved, onDelete, onSave }) {
         src={
           location.pathname === "/saved-movies"
             ? movie.image
-            : `https://api.nomoreparties.co${movie.image.url}`
+            : `${MOVIES_API_URL}${movie.image.url}`
         }
         alt={movie.nameRU}
       />

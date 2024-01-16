@@ -11,6 +11,7 @@ import {
   LOCAL_STORAGE_SHORT,
   LOCAL_STORAGE_FILTRED,
   LOCAL_STORAGE_MOVIE,
+  MAX_DURATION,
 } from "../../utils/constants";
 
 function Movies({ movies, setMovies, savedMovies, setSavedMovies }) {
@@ -85,7 +86,7 @@ function Movies({ movies, setMovies, savedMovies, setSavedMovies }) {
 
     const s = search.toLocaleLowerCase();
     const filtred = movies.filter(({ duration, nameRU, nameEN }) => {
-      const short = checkbox ? duration < 40 : true;
+      const short = checkbox ? duration < MAX_DURATION : true;
       const ru = nameRU.toLocaleLowerCase();
       const en = nameEN.toLocaleLowerCase();
       return short && (ru.includes(s) || en.includes(s));

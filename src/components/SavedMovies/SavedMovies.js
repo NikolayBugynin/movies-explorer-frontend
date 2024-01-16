@@ -5,6 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import api from "../../utils/MainApi";
 import { useUser } from "../../context/CurrentUserContext";
+import { MAX_DURATION } from "../../utils/constants";
 
 function SavedMovies({ savedMovies, setSavedMovies }) {
   const { user } = useUser();
@@ -36,7 +37,7 @@ function SavedMovies({ savedMovies, setSavedMovies }) {
     const S = search.toLowerCase();
     const filtred = savedMovies.filter(({ nameRU, nameEN, duration }) => {
       return (
-        (checkbox ? duration < 40 : true) &&
+        (checkbox ? duration < MAX_DURATION : true) &&
         (nameRU.toLowerCase().includes(S) || nameEN.toLowerCase().includes(S))
       );
     });
