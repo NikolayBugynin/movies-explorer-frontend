@@ -96,7 +96,8 @@ class MainApi {
 }
 
 const api = ({ token }) => new MainApi({
-  baseUrl: process.env.REACT_APP_API || "http://localhost:3000",
+  baseUrl: process.env.REACT_APP_API,
+  // || "http://localhost:3000",
   token
 });
 
