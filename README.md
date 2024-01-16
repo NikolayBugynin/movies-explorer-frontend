@@ -2,7 +2,7 @@
 
 Movie Explorer - это веб-сервис, позволяющий пользователю искать и добавлять к себе в профиль интересующие его фильмы.
 
-Адрес репозитория: https://github.com/NikolayBugynin/movies-explorer-frontend/tree/level-2
+Адрес репозитория: https://github.com/NikolayBugynin/movies-explorer-frontend/tree/level-3
 
 ## Ссылки на макет в Figma:
 
