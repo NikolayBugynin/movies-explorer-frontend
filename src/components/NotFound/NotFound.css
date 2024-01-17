@@ -22,7 +22,9 @@
 
 .not-found__link {
   margin-top: 284px;
+  border: none;
   color: rgba(66, 133, 244, 1);
+  background-color: unset;
   text-decoration: none;
   font-weight: 400;
   font-size: 12px;

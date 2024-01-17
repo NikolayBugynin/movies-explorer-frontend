@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Form/Form.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useForm } from "../../hooks/useForm";
 import { emailRegex, nameRegex } from "../../utils/constants";
+import { useUser } from "../../context/CurrentUserContext";
 
 function Register({ onRegister }) {
+  const { user } = useUser();
+  const { token } = user;
+  const navigate = useNavigate();
   const { values, errors, isValid, handleChange } = useForm();
 
-  const handleSubmit = (evt) => {
+  const [submitted, setSubmitted] = useState(false);
+
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (user.token) {
+      navigate("/movies");
+    }
+  }, [token]);
+
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    onRegister(values);
-  }
+    if (!isValid) return;
+    setSubmitted(true);
+    try {
+      await onRegister(values);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setSubmitted(false);
+    }
+  };
 
   return (
     <div className="window">
@@ -47,7 +69,10 @@ function Register({ onRegister }) {
           required
           pattern={emailRegex}
           value={values.email || ""}
-          onChange={handleChange}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
         <span className="window__form-item-error">{errors.email}</span>
         <label className="window__form-label" htmlFor="userpassword">
@@ -63,13 +88,17 @@ function Register({ onRegister }) {
           required
           minLength={8}
           value={values.password || ""}
-          onChange={handleChange}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
         <span className="window__form-item-error">{errors.password}</span>
+        <span className="message-error">{error}</span>
         <button
           className="window__form-submit-btn"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || submitted}
         >
           Зарегистрироваться
         </button>

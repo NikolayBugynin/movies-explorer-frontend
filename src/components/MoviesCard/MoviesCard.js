@@ -22,15 +22,17 @@ function MoviesCard({ movie, isSaved, onDelete, onSave }) {
 
   return (
     <li className="card">
-      <img
-        className="card__image"
-        src={
-          location.pathname === "/saved-movies"
-            ? movie.image
-            : `${MOVIES_API_URL}${movie.image.url}`
-        }
-        alt={movie.nameRU}
-      />
+      <a rel="noreferrer" href={movie.trailerLink} target="_blank">
+        <img
+          className="card__image"
+          src={
+            location.pathname === "/saved-movies"
+              ? movie.image
+              : `${MOVIES_API_URL}${movie.image.url}`
+          }
+          alt={movie.nameRU}
+        />
+      </a>
       <div className="card__container">
         <h3 className="card__title">{movie.nameRU}</h3>
         <p className="card__film-duration">{formatDuration(movie.duration)}</p>

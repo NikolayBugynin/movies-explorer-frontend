@@ -1,11 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
+import { useUser } from "../../context/CurrentUserContext";
 
 function Login({ onLogin }) {
+  const { user } = useUser();
+  const { token } = user;
+  const navigate = useNavigate();
   const { values, errors, isValid, handleChange } = useForm();
+
+  useEffect(() => {
+    if (user.token) {
+      navigate("/movies");
+    }
+  }, [token]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

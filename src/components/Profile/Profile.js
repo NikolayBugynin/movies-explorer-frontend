@@ -6,25 +6,27 @@ import { useUser } from "../../context/CurrentUserContext";
 import { nameRegex, emailRegex } from "../../utils/constants";
 
 function Profile({ logOut }) {
-  const { values, setValues, handleChange, errors, isValid } = useForm();
+  const { values, setValues, handleChange, errors, isValid, isChanged } =
+    useForm();
 
   const [changed, setChanged] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const { user, setUser } = useUser();
-
-  const isChanged = (key, val) => val[key] === values[key];
+  const [message, setMessage] = useState(false);
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setSubmitted(true);
     setError("");
+    setMessage(false);
     api(user)
       .updateUserInfo(values)
       .then(({ name, email }) => {
         setSubmitted(false);
         setChanged(false);
         setUser({ ...user, name, email });
+        setMessage("Данные пользователя успешно обновлены");
       })
       .catch((error) => {
         setError("При обновлении профиля произошла ошибка.");
@@ -80,6 +82,7 @@ function Profile({ logOut }) {
         </label>
         <span className="profile__form-item-error">{errors.email}</span>
         <span className="profile__form-item-error">{error}</span>
+        <span className="profile__saved-complete">{message}</span>
         {changed ? (
           <button
             disabled={

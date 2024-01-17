@@ -20,8 +20,7 @@ export function useForm() {
 
   const handleChange = (evt) => {
     const input = evt.target;
-    const value = input.value;
-    const name = input.name;
+    const { name, value } = input;
     if (input.name === "name") {
       const validityState = input.validity;
       if (validityState.patternMismatch) {
@@ -46,6 +45,13 @@ export function useForm() {
     [setValues, setErrors, setIsValid]
   );
 
+  const isChanged = (key, val) => val[key] === values[key];
+
+  const isEmptyForm = (values) => {
+    console.log(values);
+    return values.name === "";
+  };
+
   return {
     setValues,
     values,
@@ -53,5 +59,7 @@ export function useForm() {
     isValid,
     handleChange,
     resetForm,
+    isChanged,
+    isEmptyForm,
   };
 }

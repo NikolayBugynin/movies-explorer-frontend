@@ -39,17 +39,11 @@ function MoviesCardList({ movies, savedMovies, loading, onSave, onDelete }) {
 
   useEffect(() => {
     if (windowWidth >= WINDOW_WIDTH_LG) {
-      if (visibleCardCount < CARD_COUNT_LG) {
-        setVisibleCardCount(CARD_COUNT_LG);
-      }
+      setVisibleCardCount(CARD_COUNT_LG);
     } else if (windowWidth >= WINDOW_WIDTH_MD) {
-      if (visibleCardCount < CARD_COUNT_MD) {
-        setVisibleCardCount(CARD_COUNT_MD);
-      }
+      setVisibleCardCount(CARD_COUNT_MD);
     } else {
-      if (visibleCardCount < CARD_COUNT_SM) {
-        setVisibleCardCount(CARD_COUNT_SM);
-      }
+      setVisibleCardCount(CARD_COUNT_SM);
     }
   }, [windowWidth]);
 
