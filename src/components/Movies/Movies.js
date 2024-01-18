@@ -12,10 +12,21 @@ import {
   LOCAL_STORAGE_FILTRED,
   LOCAL_STORAGE_MOVIE,
   MAX_DURATION,
+  LOCAL_STORAGE_VISIBLE,
+  CARD_COUNT_MD,
+  WINDOW_WIDTH_LG,
+  CARD_COUNT_LG,
+  WINDOW_WIDTH_MD,
+  CARD_COUNT_SM,
 } from "../../utils/constants";
 
 function Movies({ movies, setMovies, savedMovies, setSavedMovies }) {
   const { user } = useUser();
+
+  const [visibleCardCount, setVisibleCardCount] = useState(
+    () =>
+      JSON.parse(localStorage.getItem(LOCAL_STORAGE_VISIBLE)) || CARD_COUNT_MD
+  );
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -28,6 +39,26 @@ function Movies({ movies, setMovies, savedMovies, setSavedMovies }) {
   const [filteredMovies, setFilteredMovies] = useState(
     () => JSON.parse(localStorage.getItem(LOCAL_STORAGE_FILTRED)) || []
   );
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const setWidth = () => {
+    if (windowWidth >= WINDOW_WIDTH_LG) {
+      setVisibleCardCount(CARD_COUNT_LG);
+    } else if (windowWidth >= WINDOW_WIDTH_MD) {
+      setVisibleCardCount(CARD_COUNT_MD);
+    } else {
+      setVisibleCardCount(CARD_COUNT_SM);
+    }
+  };
+
+  useEffect(() => {
+    setWidth();
+  }, [windowWidth]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_VISIBLE, visibleCardCount);
+  }, [visibleCardCount]);
 
   useEffect(() => {
     if (movies) {
@@ -75,6 +106,7 @@ function Movies({ movies, setMovies, savedMovies, setSavedMovies }) {
 
   const handleSearch = async (checkbox) => {
     setError("");
+    setWidth();
 
     if (!movies.length) {
       return await fetchMovies();
@@ -131,6 +163,10 @@ function Movies({ movies, setMovies, savedMovies, setSavedMovies }) {
       {error && !loading && <div className="movies-error">{error}</div>}
       {!loading && !error && movies.length > 0 && (
         <MoviesCardList
+          setWindowWidth={setWindowWidth}
+          windowWidth={windowWidth}
+          setVisibleCardCount={setVisibleCardCount}
+          visibleCardCount={visibleCardCount}
           movies={filteredMovies}
           savedMovies={savedMovies}
           onSave={handleSave}

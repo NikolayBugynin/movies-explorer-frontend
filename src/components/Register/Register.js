@@ -6,7 +6,7 @@ import { useForm } from "../../hooks/useForm";
 import { emailRegex, nameRegex } from "../../utils/constants";
 import { useUser } from "../../context/CurrentUserContext";
 
-function Register({ onRegister }) {
+function Register({ onRegister, error, setError }) {
   const { user } = useUser();
   const { token } = user;
   const navigate = useNavigate();
@@ -14,13 +14,15 @@ function Register({ onRegister }) {
 
   const [submitted, setSubmitted] = useState(false);
 
-  const [error, setError] = useState(false);
-
   useEffect(() => {
     if (user.token) {
       navigate("/movies");
     }
   }, [token]);
+
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -29,7 +31,7 @@ function Register({ onRegister }) {
     try {
       await onRegister(values);
     } catch (e) {
-      setError(e.message);
+      console.log(e.message);
     } finally {
       setSubmitted(false);
     }
@@ -54,7 +56,10 @@ function Register({ onRegister }) {
           required
           pattern={nameRegex}
           value={values.name || ""}
-          onChange={handleChange}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
         <span className="window__form-item-error">{errors.name}</span>
         <label className="window__form-label" htmlFor="useremail">

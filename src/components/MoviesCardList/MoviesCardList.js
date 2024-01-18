@@ -13,18 +13,17 @@ import {
   WINDOW_WIDTH_MD,
 } from "../../utils/constants";
 
-function MoviesCardList({ movies, savedMovies, loading, onSave, onDelete }) {
-  const [visibleCardCount, setVisibleCardCount] = useState(
-    () =>
-      JSON.parse(localStorage.getItem(LOCAL_STORAGE_VISIBLE)) || CARD_COUNT_MD
-  );
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_VISIBLE, visibleCardCount);
-  }, [visibleCardCount]);
-
+function MoviesCardList({
+  movies,
+  savedMovies,
+  loading,
+  onSave,
+  onDelete,
+  visibleCardCount,
+  setVisibleCardCount,
+  windowWidth,
+  setWindowWidth,
+}) {
   useEffect(() => {
     let timer;
     const handleResize = () => {
@@ -36,16 +35,6 @@ function MoviesCardList({ movies, savedMovies, loading, onSave, onDelete }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    if (windowWidth >= WINDOW_WIDTH_LG) {
-      setVisibleCardCount(CARD_COUNT_LG);
-    } else if (windowWidth >= WINDOW_WIDTH_MD) {
-      setVisibleCardCount(CARD_COUNT_MD);
-    } else {
-      setVisibleCardCount(CARD_COUNT_SM);
-    }
-  }, [windowWidth]);
 
   const calculateCardCount = () => {
     if (windowWidth >= WINDOW_WIDTH_LG) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../Movies/Movies.css";
 import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import MoviesCard from "../MoviesCard/MoviesCard";
 import Footer from "../Footer/Footer";
 import api from "../../utils/MainApi";
 import { useUser } from "../../context/CurrentUserContext";
@@ -53,11 +53,18 @@ function SavedMovies({ savedMovies, setSavedMovies }) {
         search={search}
         setSearch={setSearch}
       />
-      <MoviesCardList
-        savedMovies={savedMovies}
-        onDelete={handleDelete}
-        movies={filteredMovies}
-      />
+      <div className="card-list">
+        <ul className="card-list__container">
+          {filteredMovies.map((movie) => (
+            <MoviesCard
+              key={movie.id || movie.movieId}
+              movie={movie}
+              onDelete={handleDelete}
+              isSaved={() => true}
+            />
+          ))}
+        </ul>
+      </div>
       <Footer />
     </section>
   );

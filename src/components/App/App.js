@@ -33,21 +33,27 @@ function App() {
   );
   const [savedMovies, setSavedMovies] = useState([]);
 
+  const [error, setError] = useState(false);
+
   const handleRegister = async (data) => {
+    setError(false);
     try {
       await api(user).register(data);
       await handleLogin(data);
     } catch (e) {
+      setError(e.message || e);
       console.log(e);
     }
   };
 
   const handleLogin = async ({ email, password }) => {
+    setError(false);
     try {
       const { token } = await api(user).login({ email, password });
       setToken(token);
       navigate("/movies");
     } catch (e) {
+      setError(e.message || e);
       console.log(e);
     }
   };
@@ -112,9 +118,20 @@ function App() {
         />
         <Route
           path="/signup"
-          element={<Register onRegister={handleRegister} />}
+          element={
+            <Register
+              onRegister={handleRegister}
+              error={error}
+              setError={setError}
+            />
+          }
         />
-        <Route path="/signin" element={<Login onLogin={handleLogin} />} />
+        <Route
+          path="/signin"
+          element={
+            <Login onLogin={handleLogin} error={error} setError={setError} />
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

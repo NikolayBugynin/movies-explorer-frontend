@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
 import { useUser } from "../../context/CurrentUserContext";
 
-function Login({ onLogin }) {
+function Login({ onLogin, error, setError }) {
   const { user } = useUser();
   const { token } = user;
   const navigate = useNavigate();
   const { values, errors, isValid, handleChange } = useForm();
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   useEffect(() => {
     if (user.token) {
@@ -17,9 +22,14 @@ function Login({ onLogin }) {
     }
   }, [token]);
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    onLogin(values);
+    try {
+      setSubmitted(true);
+      await onLogin(values);
+    } finally {
+      setSubmitted(false);
+    }
   };
 
   return (
@@ -40,7 +50,10 @@ function Login({ onLogin }) {
           placeholder="E-mail"
           required
           value={values.email || ""}
-          onChange={handleChange}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
         <span className="window__form-item-error">{errors.email}</span>
         <label className="window__form-label" htmlFor="userpassword">
@@ -56,15 +69,19 @@ function Login({ onLogin }) {
           minLength={8}
           required
           value={values.password || ""}
-          onChange={handleChange}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
         <span className="window__form-item-error window__form-item-error-log">
           {errors.password}
         </span>
+        <span className="message-error">{error}</span>
         <button
           className="window__form-submit-btn"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || submitted}
         >
           Войти
         </button>

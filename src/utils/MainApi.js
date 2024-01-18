@@ -1,4 +1,12 @@
-import { MOVIES_API_URL } from "./constants";
+import {
+  LOCAL_STORAGE_FILTRED,
+  LOCAL_STORAGE_KEY,
+  LOCAL_STORAGE_MOVIE,
+  LOCAL_STORAGE_QUERY,
+  LOCAL_STORAGE_SHORT,
+  LOCAL_STORAGE_VISIBLE,
+  MOVIES_API_URL,
+} from "./constants";
 
 class MainApi {
   constructor(options) {
@@ -83,10 +91,23 @@ class MainApi {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    }).then(this._checkResponse);
+    }).then((res) => this._checkResponse(res, true));
   }
 
-  _checkResponse(res) {
+  _checkResponse(res, ignore = false) {
+    if (!ignore && res.status === 401) {
+      [
+        LOCAL_STORAGE_KEY,
+        LOCAL_STORAGE_MOVIE,
+        LOCAL_STORAGE_FILTRED,
+        LOCAL_STORAGE_QUERY,
+        LOCAL_STORAGE_SHORT,
+        LOCAL_STORAGE_VISIBLE,
+      ].map((key) => localStorage.removeItem(key));
+      window.location.reload();
+
+      return Promise.reject(`Требуется авторизация`);
+    }
     if (res.ok) {
       return res.json();
     } else {
@@ -95,10 +116,11 @@ class MainApi {
   }
 }
 
-const api = ({ token }) => new MainApi({
-  baseUrl: process.env.REACT_APP_API,
-  // || "http://localhost:3000",
-  token
-});
+const api = ({ token }) =>
+  new MainApi({
+    baseUrl: process.env.REACT_APP_API,
+    // || "http://localhost:3000",
+    token,
+  });
 
 export default api;

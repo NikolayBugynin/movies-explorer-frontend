@@ -16,6 +16,7 @@ export function useFormValidation() {
 export function useForm() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [error, setError] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   const handleChange = (evt) => {
@@ -61,5 +62,7 @@ export function useForm() {
     resetForm,
     isChanged,
     isEmptyForm,
+    error,
+    setError,
   };
 }

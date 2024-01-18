@@ -21,23 +21,23 @@ function Header() {
     <>
       {!user.token ? (
         <header className="header">
-          <Link to="/">
+          <NavLink to="/">
             <img className="header__logo" src={headerLogo} alt="Логотип" />
-          </Link>
+          </NavLink>
           <div className="header__links-container">
-            <Link to="/signup" className="header__link-auth">
+            <NavLink to="/signup" className="header__link-auth">
               Регистрация
-            </Link>
-            <Link to="/signin" className="header__link-log">
+            </NavLink>
+            <NavLink to="/signin" className="header__link-log">
               Войти
-            </Link>
+            </NavLink>
           </div>
         </header>
       ) : (
         <header className="header">
-          <Link to="/">
+          <NavLink to="/">
             <img className="header__logo" src={headerLogo} alt="Логотип" />
-          </Link>
+          </NavLink>
           <div className="header__wrapper">
             <div className="header__container">
               <NavLink to="/movies" className="header__link-movies">
@@ -47,9 +47,9 @@ function Header() {
                 Сохраненные фильмы
               </NavLink>
             </div>
-            <Link to="/profile" className="header__link-account">
+            <NavLink to="/profile" className="header__link-account">
               Аккаунт
-            </Link>
+            </NavLink>
           </div>
           <button
             className="header__menu-btn"
