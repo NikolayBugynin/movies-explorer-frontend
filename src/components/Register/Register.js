@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Form/Form.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
+import { useForm } from "../../hooks/useForm";
+import { emailRegex, nameRegex } from "../../utils/constants";
+import { useUser } from "../../context/CurrentUserContext";
 
-function Register() {
+function Register({ onRegister, error, setError }) {
+  const { user } = useUser();
+  const { token } = user;
+  const navigate = useNavigate();
+  const { values, errors, isValid, handleChange } = useForm();
+
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (user.token) {
+      navigate("/movies");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    setError(false);
+  }, []);
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    if (!isValid) return;
+    setSubmitted(true);
+    try {
+      await onRegister(values);
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setSubmitted(false);
+    }
+  };
+
   return (
     <div className="window">
       <Link to="/" className="window__logo-link">
         <img className="window__logo" alt="Логотип" src={logo} />
       </Link>
       <h2 className="window__title">Добро пожаловать!</h2>
-      <form className="window__form" method="POST">
+      <form className="window__form" onSubmit={handleSubmit}>
         <label className="window__form-label" htmlFor="username">
           Имя
         </label>
@@ -21,10 +54,14 @@ function Register() {
           name="name"
           placeholder="Имя"
           required
+          pattern={nameRegex}
+          value={values.name || ""}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
-        <span className="window__form-item-error">
-          Имя не должно содержать цифр
-        </span>
+        <span className="window__form-item-error">{errors.name}</span>
         <label className="window__form-label" htmlFor="useremail">
           E-mail
         </label>
@@ -35,10 +72,14 @@ function Register() {
           name="email"
           placeholder="E-mail"
           required
+          pattern={emailRegex}
+          value={values.email || ""}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
-        <span className="window__form-item-error">
-          E-mail введен некорректно
-        </span>
+        <span className="window__form-item-error">{errors.email}</span>
         <label className="window__form-label" htmlFor="userpassword">
           Пароль
         </label>
@@ -50,11 +91,20 @@ function Register() {
           placeholder="Пароль"
           autoComplete="on"
           required
+          minLength={8}
+          value={values.password || ""}
+          onChange={(e) => {
+            setError(false);
+            handleChange(e);
+          }}
         />
-        <span className="window__form-item-error">
-          Пароль должен содержать не менее 8 символов
-        </span>
-        <button className="window__form-submit-btn" type="submit">
+        <span className="window__form-item-error">{errors.password}</span>
+        <span className="message-error">{error}</span>
+        <button
+          className="window__form-submit-btn"
+          type="submit"
+          disabled={!isValid || submitted}
+        >
           Зарегистрироваться
         </button>
       </form>

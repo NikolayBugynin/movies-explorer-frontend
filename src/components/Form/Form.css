@@ -93,6 +93,10 @@
   transition: opacity 0.2 linear;
 }
 
+.window__form-submit-btn:disabled {
+  background-color: rgba(66, 66, 66, 1);
+  }
+
 .window__form-submit-btn:hover {
   opacity: 0.8;
 }

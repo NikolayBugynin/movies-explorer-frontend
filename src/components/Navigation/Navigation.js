@@ -14,31 +14,19 @@ function Navigation({ handleCloseMenu }) {
             onClick={handleCloseMenu}
           />
           <nav className="navigation__link-list">
-            <NavLink
-              className="navigation__link"
-              to="/"
-            >
+            <NavLink className="navigation__link" to="/">
               Главная
             </NavLink>
-            <NavLink
-              className="navigation__link"
-              to="/movies"
-            >
+            <NavLink className="navigation__link" to="/movies">
               Фильмы
             </NavLink>
-            <NavLink
-              className="navigation__link"
-              to="/saved-movies"
-            >
+            <NavLink className="navigation__link" to="/saved-movies">
               Сохраненные фильмы
             </NavLink>
           </nav>
-          <Link
-            className="navigation__link-account"
-            to="/profile"
-          >
+          <NavLink className="navigation__link-account" to="/profile">
             Аккаунт
-          </Link>
+          </NavLink>
         </div>
       </div>
     </section>

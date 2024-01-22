@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Header.css";
 import headerLogo from "../../images/logo.svg";
 import Navigation from "../Navigation/Navigation";
+import { useUser } from "../../context/CurrentUserContext";
 
 function Header() {
-  const location = useLocation();
+  const { user } = useUser();
   const [isClicked, setIsClicked] = React.useState(false);
 
   function handleOpenMenu() {
@@ -16,47 +17,46 @@ function Header() {
     setIsClicked(false);
   }
 
-  function useAuthHeader() {
-    const { pathname } = location;
-    return pathname === "/"
-  }
-
-  function useLogHeader() {
-    const { pathname } = location;
-    return (
-      pathname === "/profile" ||
-      pathname === "/movies" ||
-      pathname === "/saved-movies"
-    )
-  }
   return (
     <>
-      {useAuthHeader() && (
+      {!user.token ? (
         <header className="header">
-          <Link to="/">
+          <NavLink to="/">
             <img className="header__logo" src={headerLogo} alt="Логотип" />
-          </Link>
+          </NavLink>
           <div className="header__links-container">
-            <Link to="/signup" className="header__link-auth">Регистрация</Link>
-            <Link to="/signin" className="header__link-log">Войти</Link>
+            <NavLink to="/signup" className="header__link-auth">
+              Регистрация
+            </NavLink>
+            <NavLink to="/signin" className="header__link-log">
+              Войти
+            </NavLink>
           </div>
         </header>
-      )}
-
-      {useLogHeader() && (
+      ) : (
         <header className="header">
-          <Link to="/">
+          <NavLink to="/">
             <img className="header__logo" src={headerLogo} alt="Логотип" />
-          </Link>
+          </NavLink>
           <div className="header__wrapper">
             <div className="header__container">
-              <Link to="/movies" className="header__link-movies">Фильмы</Link>
-              <Link to="/saved-movies" className="header__link-movies">Сохраненные фильмы</Link>
+              <NavLink to="/movies" className="header__link-movies">
+                Фильмы
+              </NavLink>
+              <NavLink to="/saved-movies" className="header__link-movies">
+                Сохраненные фильмы
+              </NavLink>
             </div>
-            <Link to="/profile" className="header__link-account">Аккаунт</Link>
+            <NavLink to="/profile" className="header__link-account">
+              Аккаунт
+            </NavLink>
           </div>
-          <button className="header__menu-btn" type="button" onClick={handleOpenMenu} />
-          {isClicked ? (<Navigation handleCloseMenu={handleCloseMenu} />) : ("")}
+          <button
+            className="header__menu-btn"
+            type="button"
+            onClick={handleOpenMenu}
+          />
+          {isClicked ? <Navigation handleCloseMenu={handleCloseMenu} /> : ""}
         </header>
       )}
     </>

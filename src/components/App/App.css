@@ -25,3 +25,8 @@
   align-items: center;
   padding: 0;
 }
+
+.message-error {
+  color: rgba(238, 52, 101, 1);
+  margin: 10px 0 10px;
+}

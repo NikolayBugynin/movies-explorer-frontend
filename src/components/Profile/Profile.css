@@ -70,6 +70,26 @@
   transition: opacity 0.2s linear;
 }
 
+.profile__save-btn {
+  margin: 150px 0 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgba(66, 133, 244, 1);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.52px;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+  height: 45px;
+  border-radius: 3px;
+}
+
+.profile__save-btn:disabled {
+background-color: rgba(66, 66, 66, 1);
+}
+
 .profile__edit-btn:hover {
   opacity: 0.8;
 }
@@ -90,6 +110,12 @@
 
 .profile__exit-btn:hover {
   opacity: 0.8;
+}
+
+.profile__saved-complete {
+    margin-top: 50px;
+    width: 100%;
+    text-align: center;
 }
 
 @media screen and (min-width: 768px) {

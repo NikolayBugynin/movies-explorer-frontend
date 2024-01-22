@@ -99,6 +99,18 @@ ul>li {
   border: none;
 }
 
+@media (hover: none) {
+   .card__save-btn, .card__save-btn_disactive  {
+    visibility: visible;
+  }
+}
+
+@media (hover: hover) {
+  .card__save-btn, .card__save-btn_disactive  {
+   visibility: hidden;
+ }
+}
+
 @media screen and (min-width: 768px) {
   .card {
     max-width: 339px;
@@ -119,6 +131,10 @@ ul>li {
     line-height: 15.73px;
   }
 
+  .card:hover .card__save-btn, .card:hover .card__save-btn_disactive {
+    visibility: visible;
+  }
+
   .card__save-btn {
     left: 253px;
   }
@@ -127,7 +143,7 @@ ul>li {
     left: 304px;
   }
 
-  .card__save-btn_disactive {
+  .card__save-btn_disactive  {
     left: 304px;
   }
 }
